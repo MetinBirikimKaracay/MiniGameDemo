@@ -29,6 +29,7 @@ namespace MiniGameDemo
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Battlefield));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -38,6 +39,10 @@ namespace MiniGameDemo
             this.lblQuestion = new System.Windows.Forms.Label();
             this.lstbxActions = new System.Windows.Forms.ListBox();
             this.BtnSend = new System.Windows.Forms.Button();
+            this.lblHeroHP = new System.Windows.Forms.Label();
+            this.lblEnemyHP = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.lblTime = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -64,6 +69,7 @@ namespace MiniGameDemo
             // 
             // pbHeroHealth
             // 
+            this.pbHeroHealth.BackColor = System.Drawing.Color.LimeGreen;
             this.pbHeroHealth.Enabled = false;
             this.pbHeroHealth.Location = new System.Drawing.Point(102, 24);
             this.pbHeroHealth.Name = "pbHeroHealth";
@@ -122,12 +128,53 @@ namespace MiniGameDemo
             this.BtnSend.UseVisualStyleBackColor = true;
             this.BtnSend.Click += new System.EventHandler(this.BtnSend_Click);
             // 
+            // lblHeroHP
+            // 
+            this.lblHeroHP.AutoSize = true;
+            this.lblHeroHP.BackColor = System.Drawing.Color.Transparent;
+            this.lblHeroHP.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHeroHP.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblHeroHP.Location = new System.Drawing.Point(340, 24);
+            this.lblHeroHP.Name = "lblHeroHP";
+            this.lblHeroHP.Size = new System.Drawing.Size(43, 22);
+            this.lblHeroHP.TabIndex = 8;
+            this.lblHeroHP.Text = "100";
+            // 
+            // lblEnemyHP
+            // 
+            this.lblEnemyHP.AutoSize = true;
+            this.lblEnemyHP.BackColor = System.Drawing.Color.Transparent;
+            this.lblEnemyHP.Font = new System.Drawing.Font("Arial Rounded MT Bold", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEnemyHP.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblEnemyHP.Location = new System.Drawing.Point(618, 24);
+            this.lblEnemyHP.Name = "lblEnemyHP";
+            this.lblEnemyHP.Size = new System.Drawing.Size(43, 22);
+            this.lblEnemyHP.TabIndex = 9;
+            this.lblEnemyHP.Text = "100";
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // lblTime
+            // 
+            this.lblTime.AutoSize = true;
+            this.lblTime.Font = new System.Drawing.Font("Arial Rounded MT Bold", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTime.Location = new System.Drawing.Point(475, 185);
+            this.lblTime.Name = "lblTime";
+            this.lblTime.Size = new System.Drawing.Size(0, 24);
+            this.lblTime.TabIndex = 10;
+            // 
             // Battlefield
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(979, 627);
             this.ControlBox = false;
+            this.Controls.Add(this.lblTime);
+            this.Controls.Add(this.lblEnemyHP);
+            this.Controls.Add(this.lblHeroHP);
             this.Controls.Add(this.BtnSend);
             this.Controls.Add(this.lstbxActions);
             this.Controls.Add(this.lblQuestion);
@@ -140,7 +187,6 @@ namespace MiniGameDemo
             this.Name = "Battlefield";
             this.Text = "Battlefield";
             this.Load += new System.EventHandler(this.Battlefield_Load);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Battlefield_Paint);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
@@ -158,5 +204,9 @@ namespace MiniGameDemo
         private System.Windows.Forms.Label lblQuestion;
         private System.Windows.Forms.ListBox lstbxActions;
         private System.Windows.Forms.Button BtnSend;
+        private System.Windows.Forms.Label lblHeroHP;
+        private System.Windows.Forms.Label lblEnemyHP;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label lblTime;
     }
 }

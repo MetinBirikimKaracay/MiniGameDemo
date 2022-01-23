@@ -16,58 +16,98 @@ namespace MiniGameDemo
         {
             InitializeComponent();
         }
+        Hero hero;
+        Enemy enemy;
+        Random bonus = new Random();
 
-
-        int answer;
+        int answer,sayac = 4,tempAttack;
         string x, y;
         private void BtnSend_Click(object sender, EventArgs e)
         {
-            WarResult result = new WarResult();
+            
             answer = Int32.Parse(x) + Int32.Parse(y);
 
             if (txtAnswer.Text == answer.ToString())
             {
-                pbEnemyHealth.Value = pbEnemyHealth.Value - 10;
-                lstbxActions.Items.Add("Hero isimli Oyuncu " + answer + " vurdu");
+                Attack(hero);
+                
+                lstbxActions.Items.Add(hero.HeroName+" isimli Oyuncu " + tempAttack + " vurdu");
+            }
+            else if (sayac == 0)
+            {
+                pbEnemyHealth.Value -= hero.HeroAttack;
+                lstbxActions.Items.Add(hero.HeroName + " isimli Oyuncu " + hero.HeroAttack + " vurdu");
+            }
+            Result();
+        }
 
-                if (pbEnemyHealth.Value == 0)
-                {
-                    result.header = "Win!";
-                    result.image = @"C:\Users\birik\Desktop\savas\hero.png";
-                    result.Show();
-                }
-                else if (pbHeroHealth.Value == 0)
-                {
-                    result.header = "Win!";
-                    result.image = @"C:\Users\birik\Desktop\savas\enemy1.png";
-                    result.Show();
-                }
-                else
-                {
-                    lblQuestion.Text = QuestionGenerator();
-                    pbEnemyHealth.BackColor = Color.Red;
-                    this.Refresh();
-                }
+        public void Result()
+        {
+            WarResult result = new WarResult();
+
+            if (pbEnemyHealth.Value <= 0)
+            {
+                result.header = "Win!";
+                result.image = @"C:\Users\birik\Desktop\savas\hero.png";
+                result.Show();
+            }
+            else if (pbHeroHealth.Value <= 0)
+            {
+                result.header = "Lose!";
+                result.image = @"C:\Users\birik\Desktop\savas\enemy1.png";
+                result.Show();
             }
             else
             {
-                // yanlış girdin bonus kaçtı
+                lblQuestion.Text = QuestionGenerator();
+                pbEnemyHealth.BackColor = Color.Red;
+                this.Refresh();
             }
         }
 
         private void Battlefield_Load(object sender, EventArgs e)
         {
             lblQuestion.Text = QuestionGenerator();
+
+            hero = new Hero(1,100,"Kahraman",10);
+            enemy = new Enemy(1, 100, "Düşman", 20);
+
+            lblEnemyHP.Text = enemy.EnemyHp.ToString();
+            lblHeroHP.Text = hero.HeroHp.ToString();
+
+            timer1.Start();
         }
 
-        private void Battlefield_Paint(object sender, PaintEventArgs e)
+        private void Attack(Hero hero)
         {
-            /*
-            System.Drawing.Graphics grafik;
-            grafik = this.CreateGraphics();
-            Brush doldur = new SolidBrush(System.Drawing.Color.DarkBlue);
-            grafik.FillRectangle(doldur, 150, 50, 300, 20);
-        */
+            tempAttack = (hero.HeroAttack + bonus.Next(0, 15));
+            
+            if (tempAttack > pbEnemyHealth.Value)
+            {
+                pbEnemyHealth.Value = 0;
+                timer1.Stop();
+
+            }
+            else
+            {
+                pbEnemyHealth.Value = pbEnemyHealth.Value - tempAttack;
+            }
+
+            lblEnemyHP.Text = pbEnemyHealth.Value.ToString();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            sayac--;
+            lblTime.Text = sayac.ToString();
+            if(sayac == 0)
+            {
+                timer1.Stop();
+                pbEnemyHealth.Value -= hero.HeroAttack;
+                lblEnemyHP.Text = pbEnemyHealth.Value.ToString();
+                BtnSend.Enabled = false;
+            }
+
         }
 
         private string QuestionGenerator()
@@ -76,6 +116,9 @@ namespace MiniGameDemo
 
             x = r.Next(1,10).ToString();
             y = r.Next(1,10).ToString();
+
+            sayac = 4;
+            timer1.Start();
 
             return x + " + " + y;
         }

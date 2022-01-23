@@ -52,6 +52,8 @@
     <Compile Include="Battlefield.Designer.cs">
       <DependentUpon>Battlefield.cs</DependentUpon>
     </Compile>
+    <Compile Include="Enemy.cs" />
+    <Compile Include="Hero.cs" />
     <Compile Include="MainMenu.cs">
       <SubType>Form</SubType>
     </Compile>
