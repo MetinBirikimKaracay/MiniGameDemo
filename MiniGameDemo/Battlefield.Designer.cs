@@ -73,7 +73,9 @@ namespace MiniGameDemo
             // 
             // pbEnemyHealth
             // 
+            this.pbEnemyHealth.BackColor = System.Drawing.Color.Red;
             this.pbEnemyHealth.Enabled = false;
+            this.pbEnemyHealth.ForeColor = System.Drawing.Color.Red;
             this.pbEnemyHealth.Location = new System.Drawing.Point(667, 24);
             this.pbEnemyHealth.Name = "pbEnemyHealth";
             this.pbEnemyHealth.Size = new System.Drawing.Size(224, 23);
@@ -138,6 +140,7 @@ namespace MiniGameDemo
             this.Name = "Battlefield";
             this.Text = "Battlefield";
             this.Load += new System.EventHandler(this.Battlefield_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Battlefield_Paint);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
